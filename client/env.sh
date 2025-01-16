@@ -2,7 +2,7 @@
 # Environment variables necessary to run the PCNportal client
 
 # username and host for the PCNportal server
-MYUSER=user@hostname
+MYUSER=stijdboe@mentat005.dccn.nl
 
 # root directory on the PCNportal server
 PROJECTDIR=/project_cephfs/3022051.01

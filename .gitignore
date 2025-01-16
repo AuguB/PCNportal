@@ -149,3 +149,5 @@ client/variables.env
 client/docker-compose.yaml
 client/assets/PostHog.js
 server/*/execute_modelling.sh
+
+temp/*

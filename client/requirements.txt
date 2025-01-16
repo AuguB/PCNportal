@@ -2,7 +2,7 @@ wheel
 setuptools
 Flask
 dash
-numpy==1.20.3
+numpy
 pandas
 python-dateutil
 pytz
