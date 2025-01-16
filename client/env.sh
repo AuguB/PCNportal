@@ -2,22 +2,22 @@
 # Environment variables necessary to run the PCNportal client
 
 # username and host for the PCNportal server
-MYUSER=stijdboe@mentat005.dccn.nl
+export MYUSER=user@hostname
 
 # root directory on the PCNportal server
-PROJECTDIR=/project_cephfs/3022051.01
+export PROJECTDIR=/project_cephfs/3022051.01
 
 # script directory on the server 
-SCRIPTDIR=scripts/server
+export SCRIPTDIR=scripts/server
 
 # model directory
-MODELS=models
+export MODELS=models
 
 # script to fetch the directory information on the server
-LISTDIR=list_subdirs.py
+export LISTDIR=list_subdirs.py
 
 # script to perform downstream modelling on the server
-EXECUTEFILE=execute_modelling.sh
+export EXECUTEFILE=execute_modelling.sh
 
 # testing mode (prefix session id with test_session_xxx)
-LOCALTESTING=False
+export LOCALTESTING=False

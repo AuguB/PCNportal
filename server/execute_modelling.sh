@@ -7,15 +7,18 @@
 # 2 = model name
 # 3 = data type dir
 # 4 = session id
-# 5 = algorithm
+# 5 = model directory
 # 6 = user email address
 
+PROJECTDIR=$1
+SCRIPTDIR=`dirname $0`
+
 # Activate our virtual environment
-cd /project_cephfs/3022051.01
+cd $PROJECTDIR
 module load "anaconda3/2021.05"
-source activate /project_cephfs/3022051.01/pcnptk033
+source activate ${PROJECTDIR}/pcnptk033
 
 # Start modelling
 echo "Bash script activated..."
-python /project_cephfs/3022051.01/test_scripts/server/transfer_normative_models_online.py $1 $2 $3 $4 $5 $6
+python ${SCRIPTDIR}/transfer_normative_models_online.py $1 $2 $3 $4 $5 $6
 
