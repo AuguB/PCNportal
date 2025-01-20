@@ -28,18 +28,21 @@ def retrieve_options(data_type=None):
     
     # Choose between data type or models directory
     chosen_dir = os.environ['MODELS']
-    
     if data_type is not None:
         chosen_dir = os.path.join(chosen_dir, data_type)
     try: 
         py_script = os.path.join(os.environ['PROJECTDIR'], os.environ['SCRIPTDIR'], os.environ['LISTDIR'])
-    except KeyError:
+    except Exception as e:
+        print(e)
         return ["No information could be retrieved. You are not connected to the server."]
+    
     # Create a remotely executable SSH command
     list_dirs = ["ssh", "-o", "StrictHostKeyChecking=no", os.environ['MYUSER'], "python", py_script, str(chosen_dir)]
     p = Popen(list_dirs, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     # Optionally, you can use err to check error codes.
     output, err = p.communicate()
+    print(f"{output=}")
+    print(f"{err=}")
     # rc = p.returncode
     
     # Convert to appropriate list format

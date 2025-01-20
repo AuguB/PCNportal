@@ -21,7 +21,7 @@ def main():
     # Create the training and prediction data   
     train_data = NormData.from_dataframe(
         "transfer_fit",
-        transfer_fit_data,
+        transfer_fit_data, 
         covariates=nm.covariates,
         response_vars=nm.response_vars,
         batch_effect_dims=list(nm.unique_batch_effects.keys()),
