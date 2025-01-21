@@ -284,7 +284,6 @@ def model_information(model_selection, data_type):
         
         model_path = os.path.join(projectdir, os.environ['MODELS'], data_type, model_selection) 
         readme_path = os.path.join(model_path,"README.md")
-        covsbe_path = os.path.join(model_path, "mandatory_columns.txt") 
 
         # Retrieve and write out model-specific readmes.
         cat_readme = ["ssh", "-o", "StrictHostKeyChecking=no", username, "cat", readme_path]
@@ -301,11 +300,7 @@ def model_information(model_selection, data_type):
         except AttributeError:
             return no_update, no_update, no_update
         # Get mandatory columns, i.e. covs and batch effects.
-        cat_model_covsbe = ["ssh", "-o", "StrictHostKeyChecking=no", username, "cat", covsbe_path]
-        p = Popen(cat_model_covsbe, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-        output, _ = p.communicate()
-        covbe_byte_to_string = str(output, encoding='UTF-8')
-        mandatory_column_names = covbe_byte_to_string.splitlines()
+        reponse_vars = 
         return byte_to_string, download_link, mandatory_column_names
     # no_update prevents error when 3 values are expected to be returned but none are returned.
     else: return no_update, no_update, no_update
