@@ -460,12 +460,21 @@ def update_output(email_address, data_type, model_selection, test_contents, test
 
         # Submit computation request with all the collected user input.
         bash_path = os.path.join(projectdir, scriptdir, executefile).replace("\\","/") 
-        #echo '/project_cephfs/3022051.01/scripts/server/execute_modelling.sh /project_cephfs/3022051.01/ BLR_lifespan_57K_82sites ThickAvg test_session_25901cb4670348fca60b7d6bde1a56be BLR pieterwbarkema@gmail.com' | qsub -l walltime=4:00:00,mem=4gb
-        #execute = 'ssh -o "StrictHostKeyChecking=no" {user} {bash_path} {projectdir} {model_selection} {data_type} {session_id} {algorithm} {email_address}'.format(user=username, bash_path=bash_path, projectdir = projectdir, model_selection=model_selection, data_type = data_type, session_id=session_id, algorithm=algorithm, email_address = email_address) 
-        # use echo and qsub to close ssh connection instantly
         stderr = os.path.join(projectdir, "sessions", session_id, "main_job_error.txt")
         stdout = os.path.join(projectdir, "sessions", session_id, "main_job_output.txt")
-        execute = "ssh -o 'StrictHostKeyChecking=no' {user} 'echo \"{bash_path} {projectdir} {model_selection} {data_type} {session_id} {model_dir} {email_address}\" | qsub -l walltime=23:00:00,mem=4gb -e {stderr} -o {stdout}'".format(user=username, bash_path=bash_path, projectdir = projectdir, model_selection=model_selection, data_type = data_type, session_id=session_id, model_dir = model_dir, email_address = email_address, stderr=stderr, stdout=stdout)
+        
+        execute = "ssh -o 'StrictHostKeyChecking=no' {user} 'sbatch --time=23:00:00 --mem=4G --output={stdout} --error={stderr} --wrap=\"{bash_path} {projectdir} {model_selection} {data_type} {session_id} {model_dir} {email_address}\"'".format(
+            user=username,
+            bash_path=bash_path,
+            projectdir=projectdir,
+            model_selection=model_selection,
+            data_type=data_type,
+            session_id=session_id,
+            model_dir=model_dir,
+            email_address=email_address,
+            stderr=stderr,
+            stdout=stdout
+        )
         subprocess.call(execute, shell=True)
 
         finished_message = "Your request has successfully been submitted with session ID: {session_id}.\nYou should receive results in your inbox the coming hour(s).".format(session_id=session_id)
